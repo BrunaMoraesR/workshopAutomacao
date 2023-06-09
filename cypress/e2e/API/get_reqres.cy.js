@@ -1,6 +1,6 @@
 const baseUrl = 'https://reqres.in';
 
-describe('List Users', () => {
+describe('List Users | Page 1', () => {
   const url = baseUrl + '/api/users';
   it('Validação status code 200', () => {
     cy.request({
@@ -18,6 +18,29 @@ describe('List Users', () => {
       const body = res.body;
       cy.log(res.body)
       expect(body.page).to.eq(1)
+      expect(body.data.length).to.eq(6)
+    })
+  })
+})
+
+describe('List Users | Page 2', () => {
+  const url = baseUrl + '/api/users?page=2';
+  it('Validação status code 200', () => {
+    cy.request({
+      method: 'GET',
+      url: url
+    }).then((res) => {
+      expect(res.status).to.eq(200)
+    })
+  })
+  it('Validação do body', () => {
+    cy.request({
+      method: 'GET',
+      url: url
+    }).then((res) => {
+      const body = res.body;
+      cy.log(res.body)
+      expect(body.page).to.eq(2)
       expect(body.data.length).to.eq(6)
     })
   })
