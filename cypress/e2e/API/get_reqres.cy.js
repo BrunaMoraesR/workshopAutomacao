@@ -46,6 +46,29 @@ describe('List Users | Page 2', () => {
   })
 })
 
+describe('List Users | Page 3 | No results', () => {
+  const url = baseUrl + '/api/users?page=3';
+  it('Validação status code 200', () => {
+    cy.request({
+      method: 'GET',
+      url: url
+    }).then((res) => {
+      expect(res.status).to.eq(200)
+    })
+  })
+  it('Validação do body', () => {
+    cy.request({
+      method: 'GET',
+      url: url
+    }).then((res) => {
+      const body = res.body;
+      cy.log(res.body)
+      expect(body.page).to.eq(3)
+      expect(body.data.length).to.eq(0)
+    })
+  })
+})
+
 describe('Single User', () => {
   const url = baseUrl + '/api/users/1';
   it('Validação status code 200', () => {
