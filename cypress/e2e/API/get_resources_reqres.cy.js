@@ -90,3 +90,16 @@ describe('Single resource', () => {
     })
   })
 })
+
+describe('Resource not found', () => {
+  const url = baseUrl + '/13'
+  it('Validação de status code 404', () => {
+    cy.request({
+      method: 'GET',
+      url: url,
+      failOnStatusCode: false
+    }).then((res) => {
+      expect(res.status).to.eq(404)
+    })
+  })
+})
