@@ -67,3 +67,26 @@ describe('List resources | Page 3 | No results', () => {
     })
   })
 })
+
+describe('Single resource', () => {
+  const url = baseUrl + '/7'
+  it('Validação de status code 200', () => {
+    cy.request({
+      method: 'GET',
+      url: url
+    }).then((res) => {
+      expect(res.status).to.eq(200)
+    })
+  })
+  it('Validação do body', () => {
+    cy.request({
+      method: 'GET',
+      url: url
+    }).then((res) => {
+      const data = res.body.data;
+      cy.log(data)
+      expect(data).to.have.keys('id', 'name', 'year', 'color', 'pantone_value')
+      expect(data.id).to.eq(7)
+    })
+  })
+})
